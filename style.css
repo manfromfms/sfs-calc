@@ -1,0 +1,44 @@
+.switch {
+    padding-left: 10px;
+}
+
+.button-switch {
+    border: 2px solid black;
+    margin: -3px;
+}
+
+.delta {
+    background-color: #FF851B;
+}
+
+.desc {
+    background-color: #4CAF50;
+}
+
+.first {
+    background-color: #A5260A;
+}
+
+.submit {
+    background-color: white;
+    border: 2px solid white;
+}
+
+.content {
+    margin: 7px;
+    margin-top: 1px;
+    padding: 16px;
+    border: 2px solid black;
+}
+
+.desc-div {
+    background-color: #4CAF50;
+}
+
+.delta-div {
+    background-color: #FF851B;
+}
+
+.first-div {
+    background-color: #A5260A;
+}

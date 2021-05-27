@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cosmic calculator lite</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="header">
+        <h1 class="title">Lite калькулятор космических величин</h1>
+    </div>
+    <div class="switch">
+        <button class="button-switch desc" id="desc">Описание</button>
+        <button class="button-switch delta" id="delta">Дельта-V</button>
+        <button class="button-switch first" id="first">Первая Космическая</button>
+    </div>
+
+    <div class="content desc-div" id="desc-div">
+        <h2>СФС калькулятор lite.</h2>
+        <p>Справка:<br>Все величины длинны вводятся в км. Все величины скоростей вводятсф в км/ч. Все величины ускорений свободного падения вводятся в м/с^2. Все величины массы водятся в кг</p>
+
+    </div>
+
+    <div class="content delta-div" id="delta-div">
+        <table>
+            <tr>
+                <td>
+                    <lable for="mn1">Начальная масса</lable>
+                </td>
+                <td>
+                    <input type="number" name="mn1" onchange="mn1 = Number(this.value)">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <lable for="mk1">Конечная масса</lable>
+                </td>
+                <td>
+                    <input type="number" name="mk1" onchange="mk1 = Number(this.value)">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <lable for="i1">Удельный импульс</lable>
+                </td>
+                <td>
+                    <input type="number" name="i1" onchange="i1 = Number(this.value)">
+                </td>
+            </tr>
+        </table>
+
+        <button class="submit" onclick="calc1()">Рассчитать</button>
+
+        <p class="result" id="res1"></p>
+    </div>
+
+    <div class="content first-div" id="first-div">
+        <table>
+            <tr>
+                <td>
+                    <lable for="g2">g тела</lable>
+                </td>
+                <td>
+                    <input type="number" name="g2" onchange="g2 = Number(this.value)">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <lable for="r2">Радиус тела</lable>
+                </td>
+                <td>
+                    <input type="number" name="r2" onchange="r2 = Number(this.value)">
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <lable for="h2">Высота орбиты</lable>
+                </td>
+                <td>
+                    <input type="number" name="h2" onchange="h2 = Number(this.value)">
+                </td>
+            </tr>
+        </table>
+
+        <button class="submit" onclick="calc2()">Рассчитать</button>
+
+        <p class="result" id="res2"></p>
+    </div>
+
+    <script src="load.js"></script>
+    <script src="switch.js"></script>
+    <script src="script.js"></script>
+</body></html>
