@@ -1,3 +1,8 @@
+body {
+    background-image: url("https://wallpaperaccess.com/full/39608.jpg");
+    background-size: 100%;
+}
+
 .switch {
     padding-left: 10px;
 }
@@ -26,7 +31,7 @@
 
 .content {
     margin: 7px;
-    margin-top: 1px;
+    margin-top: 0px;
     padding: 16px;
     border: 2px solid black;
 }
@@ -41,4 +46,24 @@
 
 .first-div {
     background-color: #A5260A;
+}
+
+.fuel-div {
+    background-color: #7FFFD4;
+}
+
+.fuel {
+    background-color: aquamarine;
+}
+
+.height {
+    background-color: #FF3FB0;
+}
+
+.height-div {
+    background-color: #FF3FB0;
+}
+
+.title {
+    color: white;
 }
