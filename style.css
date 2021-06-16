@@ -1,6 +1,6 @@
 body {
-    background-image: url("https://wallpaperaccess.com/full/39608.jpg");
-    background-size: 100%;
+    background-size: 2.5%;
+    min-width: 703px;
 }
 
 .switch {
@@ -64,6 +64,23 @@ body {
     background-color: #FF3FB0;
 }
 
+.eff {
+    background-color: #7830FF;
+}
+
+.eff-div {
+    background-color: #7830FF;
+}
+
 .title {
     color: white;
+}
+
+.header {
+    text-align: center;
+}
+
+.inform {
+    margin-bottom: 2px;
+    margin-top: 2px;
 }

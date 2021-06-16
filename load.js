@@ -4,6 +4,7 @@ const delta = document.getElementById('delta')
 const first = document.getElementById('first')
 const fuel = document.getElementById('fuel')
 const height = document.getElementById('height')
+const eff = document.getElementById('eff')
 
 //content
 const descdiv = document.getElementById('desc-div')
@@ -11,12 +12,14 @@ const deltadiv = document.getElementById('delta-div')
 const firstdiv = document.getElementById('first-div')
 const fueldiv = document.getElementById('fuel-div')
 const heightdiv = document.getElementById('height-div')
+const effdiv = document.getElementById('eff-div')
 
 //results
 const res1 = document.getElementById('res1')
 const res2 = document.getElementById('res2')
 const res3 = document.getElementById('res3')
 const res4 = document.getElementById('res4')
+const res5 = document.getElementById('res5')
 
 //inputs
 var mn1 = 0
@@ -41,3 +44,4 @@ deltadiv.style.display = 'none'
 firstdiv.style.display = 'none'
 fueldiv.style.display = 'none'
 heightdiv.style.display = 'none'
+effdiv.style.display = 'none'

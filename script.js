@@ -21,5 +21,42 @@ var calc3 = () => {
 }
 
 var calc4 = () => {
-    res4.innerHTML = Math.sqrt(2 * g4 * hn4 * hk4 / (hn4 + hk4)) + 'кг'
+    res4.innerHTML = Math.sqrt(2 * g4 * hn4 * hk4 / (hn4 + hk4)) + 'м/с'
+}
+
+var calc5 = () => {
+    var formdata = new FormData(document.getElementById('aui'))
+    var Idata = formdata.getAll('I')
+    var Tdata = formdata.getAll('T')
+
+    var upsum = 0
+    var downsum = 0
+
+    for (let i in Idata) {
+        upsum += Number(Tdata[i])
+        downsum += Number(Tdata[i]) / Number(Idata[i])
+    }
+
+    res5.innerHTML = (upsum / downsum) + "т"
+}
+
+window.addEventListener("load", (event) => {
+    var rand = Math.random()
+
+    if (rand < 0.001) {
+        document.getElementById('body').style.backgroundImage = "url(images/bg-tile-2.png)"
+    } else {
+        document.getElementById('body').style.backgroundImage = "url(images/bg-tile.png)"
+    }
+})
+
+var addeng = () => {
+    var form = document.getElementById('aui')
+
+    form.insertAdjacentHTML("beforeend", '<div class="inform"><table><tr><td><label for="I">УИ двигателя</label></td><td><input type="number" name="I"></td></tr><tr><td><label for="T">Тяга двигателя</label></td><td><input type="number" name="T"></td></tr></table></div>')
+}
+
+var removeeng = () => {
+    var form = document.getElementById('aui')
+    form.removeChild(form.lastChild);
 }

@@ -6,6 +6,7 @@ desc.onclick = (event) => {
     first.style.borderBottomColor = 'black'
     fuel.style.borderBottomColor = 'black'
     height.style.borderBottomColor = 'black'
+    eff.style.borderBottomColor = 'black'
 
 
     descdiv.style.display = 'block'
@@ -13,6 +14,7 @@ desc.onclick = (event) => {
     firstdiv.style.display = 'none'
     fueldiv.style.display = 'none'
     heightdiv.style.display = 'none'
+    effdiv.style.display = 'none'
 
 }
 
@@ -24,12 +26,14 @@ delta.onclick = (event) => {
     first.style.borderBottomColor = 'black'
     fuel.style.borderBottomColor = 'black'
     height.style.borderBottomColor = 'black'
+    eff.style.borderBottomColor = 'black'
 
     descdiv.style.display = 'none'
     deltadiv.style.display = 'block'
     firstdiv.style.display = 'none'
     fueldiv.style.display = 'none'
     heightdiv.style.display = 'none'
+    effdiv.style.display = 'none'
 }
 
 //first
@@ -40,12 +44,14 @@ first.onclick = (event) => {
     delta.style.borderBottomColor = 'black'
     fuel.style.borderBottomColor = 'black'
     height.style.borderBottomColor = 'black'
+    eff.style.borderBottomColor = 'black'
 
     descdiv.style.display = 'none'
     deltadiv.style.display = 'none'
     firstdiv.style.display = 'block'
     fueldiv.style.display = 'none'
     heightdiv.style.display = 'none'
+    effdiv.style.display = 'none'
 
 }
 
@@ -57,12 +63,14 @@ fuel.onclick = (event) => {
     delta.style.borderBottomColor = 'black'
     first.style.borderBottomColor = 'black'
     height.style.borderBottomColor = 'black'
+    eff.style.borderBottomColor = 'black'
 
     descdiv.style.display = 'none'
     deltadiv.style.display = 'none'
     firstdiv.style.display = 'none'
     fueldiv.style.display = 'block'
     heightdiv.style.display = 'none'
+    effdiv.style.display = 'none'
 }
 height.onclick = (event) => {
     height.style.borderBottomColor = '#FF3FB0'
@@ -71,10 +79,29 @@ height.onclick = (event) => {
     delta.style.borderBottomColor = 'black'
     first.style.borderBottomColor = 'black'
     fuel.style.borderBottomColor = 'black'
+    eff.style.borderBottomColor = 'black'
 
     descdiv.style.display = 'none'
     deltadiv.style.display = 'none'
     firstdiv.style.display = 'none'
     fueldiv.style.display = 'none'
     heightdiv.style.display = 'block'
+    effdiv.style.display = 'none'
+}
+
+eff.onclick = (event) => {
+    eff.style.borderBottomColor = '#7830FF'
+
+    desc.style.borderBottomColor = 'black'
+    delta.style.borderBottomColor = 'black'
+    first.style.borderBottomColor = 'black'
+    fuel.style.borderBottomColor = 'black'
+    height.style.borderBottomColor = 'black'
+
+    descdiv.style.display = 'none'
+    deltadiv.style.display = 'none'
+    firstdiv.style.display = 'none'
+    fueldiv.style.display = 'none'
+    heightdiv.style.display = 'none'
+    effdiv.style.display = 'block'
 }
