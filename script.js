@@ -37,7 +37,7 @@ var calc5 = () => {
         downsum += Number(Tdata[i]) / Number(Idata[i])
     }
 
-    res5.innerHTML = (upsum / downsum) + "т"
+    res5.innerHTML = (upsum / downsum) + "с"
 }
 
 window.addEventListener("load", (event) => {
