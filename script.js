@@ -49,7 +49,7 @@ var calc6 = () => {
     let vexit = Math.abs(Math.sqrt(g06 * r06 * r06 / (r06 + a16)) - Math.sqrt(g06 * r06 * r06 * (2 / a16 - 2 / (a16 + a26))));
     let ao = g16 * r16 * r16 / (g16 * r16 * r16 * (2 / rsoi1) - vexit * vexit);
     let vadd = Math.sqrt(g16 * r16 * r16 * (2 / (r16 + h16) - 1 / ao)) - Math.sqrt(g16 * r16 * r16 / (r16 + h16));
-    let T = Math.PI * Math.sqrt(Math.pow(0.6 * a16 + 0.6 * a26, 3) / (g06 * r06 * r06));
+    let T = Math.PI * Math.sqrt(Math.pow(0.5 * a16 + 0.5 * a26, 3) / (g06 * r06 * r06));
     let startAng = 180 - 180 * T * Math.sqrt(g06 * r06 * r06 / (r06 + a26)) / (Math.PI * (r06 + a26));
     let venter = Math.abs(Math.sqrt(g06 * r06 * r06 / (r06 + a26)) - Math.sqrt(g06 * r06 * r06 * (2 / a26 - 2 / (a16 + a26))));
     let ae = g26 * r26 * r26 / (g26 * r26 * r26 * (2 / rsoi2) - venter * venter);
