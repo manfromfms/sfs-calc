@@ -24,7 +24,7 @@ var calc4 = () => {
     res4.innerHTML = Math.sqrt(2 * g4 * hn4 * hk4 / (hn4 + hk4)) + 'м/с'
 }
 
-var calc6 = () => {
+var calc5 = () => {
     var formdata = new FormData(document.getElementById('aui'))
     var Idata = formdata.getAll('I')
     var Tdata = formdata.getAll('T')
@@ -39,7 +39,7 @@ var calc6 = () => {
             downsum += Number(Tdata[i]) / Number(Idata[i])
         }
 
-        res6.innerHTML = (upsum / downsum) + "т"
+        res5.innerHTML = (upsum / downsum) + "т"
     }
 }
 
