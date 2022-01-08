@@ -1,4 +1,5 @@
 var switchCalc = (num) => {
+    menuOpen();
     var child = document.querySelector('#stuff').children
 
     for (let i in child) {
