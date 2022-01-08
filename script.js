@@ -137,7 +137,20 @@ var calc13 = () => {
         res13.innerHTML = `Время работы: <b>${(mt4 / downsum) + 'c'}</b><br> Массовый расход: <b>${downsum + 'т/с'}</b>`;
     };
 };
+var calc14 = () => {
+    var formdata = new FormData(document.getElementById('mast'));
+    var Idata = formdata.getAll('I');
+    var Tdata = formdata.getAll('T');
+    if (Idata.length > 0) {
+        var downsum = 0;
+        for (let i in Idata) {
+            downsum += Number(Tdata[i]) / Number(Idata[i]);
+        };
+        res14.innerHTML = `Время работы: <b>${(t4 * downsum) + 'т'}</b><br> Массовый расход: <b>${downsum + 'т/с'}</b>`
+    }
+}
 var calc20 = () => {
+    var nG = 6.67430 * Math.pow(10, -11);
     var massp = ( g20 * r20 ** 2 ) / nG;
     var gravp = g20 * r20 ** 2;
 	var gheight = gravp / ( Math.pow(( r20 + h20 ) , 2 ));
