@@ -1,0 +1,751 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Cosmic calculator</title>
+    <link rel="stylesheet" href="style.css">
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-GBKSZVTL7W"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+
+        function gtag() {
+            dataLayer.push(arguments);
+        }
+        gtag('js', new Date());
+
+        gtag('config', 'G-GBKSZVTL7W');
+    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/mathjs/6.6.4/math.js"></script>
+</head>
+
+<body id="body">
+    <div class="header">
+        <h1 class="title" onclick="alert('Автор normchell, автор формул repkon')">SFS калькулятор</h1>
+    </div>
+    <div class="menu-button" onclick="menuOpen()">
+        <img src="images/menu-ico.png">
+    </div>
+    <div class="switch" id="switch">
+        <div class="switch-buttons">
+            <button class="button-switch desc" onclick="switchCalc(0)">Описание</button>
+            <button class="button-switch delta" onclick="switchCalc(1)">Дельта-V</button>
+            <button class="button-switch first" onclick="switchCalc(2)">1 и 2 Космические</button>
+            <button class="button-switch rocket" onclick="switchCalc(3)">Расчёт ракеты</button>
+            <button class="button-switch height" onclick="switchCalc(4)">Скорость для высоты</button>
+            <button class="button-switch eff" onclick="switchCalc(5)">Средний УИ</button>
+            <button class="button-switch orbit" onclick="switchCalc(6)">Выход на орбиту</button>
+            <button class="button-switch mass" onclick="switchCalc(7)">Массовый расход</button>
+            <button class="button-switch planet" onclick="switchCalc(8)">Характеристки тела</button>
+			<button class="button-switch orbhar" onclick="switchCalc(9)">Характеристки орбиты</button>
+			<button class="button-switch parach" onclick="switchCalc(10)">Количество парашютов</button>
+			<button class="button-switch aero" onclick="switchCalc(11)">Аэродинамический коэффициент</button>
+			<button class="button-switch aero" onclick="switchCalc(12)">Рассчёт карты Дельта-V</button>
+            <button class="button-switch settings" onclick="switchCalc(13)">Настройки</button>
+        </div>
+    </div>
+    <div class="counting" id="everything">
+        <div class="stuff" id="stuff">
+            <div class="content desc-div" id="desc-div">
+                <p>Справка:<br> </p>
+                <ul>
+                    <li>Все величины вводятся в системе СИ, кроме удельного импульса(в с) и тяги(в т).</li>
+                </ul> <a href="https://discord.gg/E4cr3h6enY"> <img src="data:image/png;base64,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" alt="Update your browser" width="40px"> </a>
+            </div>
+            <div class="content delta-div" id="delta-div">
+                <h3>ΔV 1</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="mn1">Начальная масса</lable>
+                        </td>
+                        <td> <input type="number" name="mn1" onchange="mn1 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="mk1">Конечная масса</lable>
+                        </td>
+                        <td> <input type="number" name="mk1" onchange="mk1 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="i1">Средний УИ</lable>
+                        </td>
+                        <td> <input type="number" name="i1" onchange="i1 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc1()">Рассчитать</button>
+                <p class="result" id="res1"></p>
+                <h3>ΔV 2</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="mk10">Конечная масса</lable>
+                        </td>
+                        <td> <input type="number" name="mk10" onchange="mk10 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="mb1">Масса баков</lable>
+                        </td>
+                        <td> <input type="number" name="mb1" onchange="mb1 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="n1">Коэффициент баков(по умолчанию 10)</lable>
+                        </td>
+                        <td> <input type="number" name="n1" onchange="n1 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="i10">Средний УИ</lable>
+                        </td>
+                        <td> <input type="number" name="i10" onchange="i10 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc9()">Рассчитать</button>
+                <p class="result" id="res9"></p>
+                <h3>ΔV 3</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="mk11">Общая масса</lable>
+                        </td>
+                        <td> <input type="number" name="mk11" onchange="mk11 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="mt1">Масса топлива</lable>
+                        </td>
+                        <td> <input type="number" name="mt1" onchange="mt1 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="i11">Средний УИ</lable>
+                        </td>
+                        <td> <input type="number" name="i11" onchange="i11 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc10()">Рассчитать</button>
+                <p class="result" id="res10"></p>
+                <h3>ΔV 4</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="mk12">Общая масса</lable>
+                        </td>
+                        <td> <input type="number" name="mk12" onchange="mk12 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="mt2">Масса топлива</lable>
+                        </td>
+                        <td> <input type="number" name="mt2" onchange="mt2 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="y1">Начальный процент топлива</lable>
+                        </td>
+                        <td> <input type="number" name="y1" onchange="y1 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="x1">Конечный процент топлива</lable>
+                        </td>
+                        <td> <input type="number" name="x1" onchange="x1 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="i12">Средний УИ</lable>
+                        </td>
+                        <td> <input type="number" name="i12" onchange="i12 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc11()">Рассчитать</button>
+                <p class="result" id="res11"></p>
+            </div>
+            <div class="content first-div" id="first-div">
+                <h3>Первая космическая скорость на заданной высоте</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="g2">Ускорение свободного падения на поверхности тела</lable>
+                        </td>
+                        <td> <input type="number" name="g2" onchange="g2 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="r2">Радиус тела</lable>
+                        </td>
+                        <td> <input type="number" name="r2" onchange="r2 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="h2">Высота орбиты</lable>
+                        </td>
+                        <td> <input type="number" name="h2" onchange="h2 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc2()">Рассчитать</button>
+                <p class="result" id="res2"></p>
+                <h3>Вторая космическая скорость на заданной высоте</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="g2">Ускорение свободного падения на поверхности тела</lable>
+                        </td>
+                        <td> <input type="number" name="g2" onchange="g2 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="r2">Радиус тела</lable>
+                        </td>
+                        <td> <input type="number" name="r2" onchange="r2 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="h2">Высота орбиты</lable>
+                        </td>
+                        <td> <input type="number" name="h2" onchange="h2 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc12()">Рассчитать</button>
+                <p class="result" id="res12"></p>
+            </div>
+            <div class="content stage-div" id="stage-div">
+                <h3>Расчет ступеней</h3>
+                <table>
+                    <tr>
+                        <td> <label for="mk">Полезная нагрузка</label> </td>
+                        <td> <input type="number" name="mk7" onchange="mk7 = Number(this.value)"> </td>
+                    </tr>
+                </table>
+                <form name="stg" id="stg">
+                    <div class="inform" id="example">
+                        <table>
+                            <tr>
+                                <td> <label for="I">УИ двигателя</label> </td>
+                                <td> <input type="number" name="I"> </td>
+                            </tr>
+                            <tr>
+                                <td> <label for="M">Масса одного двигателя</label> </td>
+                                <td> <input type="number" name="M"> </td>
+                            </tr>
+							<tr>
+                                <td> <label for="T">Тяга одного двигателя</label> </td>
+                                <td> <input type="number" name="T"> </td>
+                            </tr>
+                            <tr>
+                                <td> <label for="TWR">ТВР</label> </td>
+                                <td> <input type="number" name="TWR"> </td>
+                            </tr>
+                            <tr>
+                                <td> <label for="V">Дельта-V</label> </td>
+                                <td> <input type="number" name="V"> </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form> <button class="add" onclick="addstg7()"><img src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/04-512.png" alt="Упс... А где картинка" height="20px"></button> <button class="remove" onclick="removestg7()"><img src="data:image/jpeg;base64,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" alt="Упс... А где картинка" height="20px"></button> <button class="submit" onclick="calc7()">Рассчитать</button>
+                <p class="result" id="res7"></p>
+            </div>
+            <div class="content height-div" id="height-div">
+                <h3>Расчет скорости необходимой для достижения заданной высоты</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="g4">Ускорение свободного падения на поверхности тела</lable>
+                        </td>
+                        <td> <input type="number" name="g4" onchange="g4 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="hn4">Радиус тела</lable>
+                        </td>
+                        <td> <input type="number" name="hn4" onchange="hn4 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="hk4">Высота</lable>
+                        </td>
+                        <td> <input type="number" name="hk4" onchange="hk4 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc4()">Рассчитать</button>
+                <p class="result" id="res4"></p>
+            </div>
+            <div class="content eff-div" id="eff-div">
+                <h3>Расчет среднего УИ для системы двигателей</h3>
+                <form name="aui" id="aui">
+                    <div class="inform" id="example">
+                        <table>
+                            <tr>
+                                <td> <label for="I">УИ двигателя</label> </td>
+                                <td> <input type="number" name="I"> </td>
+                            </tr>
+                            <tr>
+                                <td> <label for="T">Тяга двигателя</label> </td>
+                                <td> <input type="number" name="T"> </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form> <button class="add" onclick="addeng5()"><img src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/04-512.png" alt="Упс... А где картинка" height="20px"></button> <button class="remove" onclick="removeeng5()"><img src="data:image/jpeg;base64,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" alt="Упс... А где картинка" height="20px"></button> <button class="submit" onclick="calc5()">Рассчитать</button>
+                <p class="result" id="res5"></p>
+            </div>
+            <div class="content orbit-div" id="orbit-div">
+                <h3>Дельта скорости для выхода на орбиту</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="g8">Ускорение свободного падения на поверхности тела</lable>
+                        </td>
+                        <td> <input type="number" name="g8" onchange="g8 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="hn8">Радиус тела</lable>
+                        </td>
+                        <td> <input type="number" name="hn8" onchange="r8 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="hk8">Высота</lable>
+                        </td>
+                        <td> <input type="number" name="hk8" onchange="h8 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc8()">Рассчитать</button>
+                <p class="result" id="res8"></p>
+            </div>
+            <div class="content mass-div" id="mass-div">
+                <h3>Расчет массового расхода и времени работы двигателя</h3>
+                <table>
+                    <tr>
+                        <td> <label for="mt4">Масса топлива</label> </td>
+                        <td> <input type="number" name="mt4" onchange="mt4 = Number(this.value)"> </td>
+                    </tr>
+                </table>
+                <form name="mass" id="mass">
+                    <div class="inform" id="example">
+                        <table>
+                            <tr>
+                                <td> <label for="I">УИ двигателя</label> </td>
+                                <td> <input type="number" name="I"> </td>
+                            </tr>
+                            <tr>
+                                <td> <label for="T">Тяга двигателя</label> </td>
+                                <td> <input type="number" name="T"> </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form> <button class="add" onclick="addeng9()"><img src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/04-512.png" alt="Упс... А где картинка" height="20px"></button> <button class="remove" onclick="removeeng9()"><img src="data:image/jpeg;base64,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" alt="Упс... А где картинка" height="20px"></button> <button class="submit" onclick="calc13()">Рассчитать</button>
+                <p class="result" id="res13"></p>
+                <h3>Расчет израсходованного топлива</h3>
+                <table>
+                    <tr>
+                        <td> <label for="t4">Время работы</label> </td>
+                        <td> <input type="number" name="t4" onchange="t4 = Number(this.value)"> </td>
+                    </tr>
+                </table>
+                <form name="mast" id="mast">
+                    <div class="inform" id="example">
+                        <table>
+                            <tr>
+                                <td> <label for="I">УИ двигателя</label> </td>
+                                <td> <input type="number" name="I"> </td>
+                            </tr>
+                            <tr>
+                                <td> <label for="T">Тяга двигателя</label> </td>
+                                <td> <input type="number" name="T"> </td>
+                            </tr>
+                        </table>
+                    </div>
+                </form> <button class="add" onclick="addeng11()"><img src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/04-512.png" alt="Упс... А где картинка" height="20px"></button> <button class="remove" onclick="removeeng11()"><img src="data:image/jpeg;base64,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" alt="Упс... А где картинка" height="20px"></button> <button class="submit" onclick="calc14()">Рассчитать</button>
+                <p class="result" id="res14"></p>
+            </div>
+			<div class="content planet-div" id="planet-div">
+                <h3>Характеристки небесного тела</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="g20">Ускорение свободного падения на поверхности тела</lable>
+                        </td>
+                        <td> <input type="number" name="g20" onchange="g20 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="r20">Радиус тела</lable>
+                        </td>
+                        <td> <input type="number" name="r20" onchange="r20 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="h20">Высота</lable>
+                        </td>
+                        <td> <input type="number" name="h20" onchange="h20 = Number(this.value)"> </td>
+                    </tr>
+					<tr>
+                        <td>
+                            <lable for="a20">Радиус орбиты тела(большая полуось)</lable>
+                        </td>
+                        <td> <input type="number" name="a20" onchange="a20 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="g020">Ускорение свободного падения на поверхности родительского тела</lable>
+                        </td>
+                        <td> <input type="number" name="g020" onchange="g020 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="r020">Радиус родительского тела</lable>
+                        </td>
+                        <td> <input type="number" name="r020" onchange="r020 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc20()">Рассчитать</button>
+                <p class="result" id="res20"></p>
+            </div>
+			<div class="content orbhar-div" id="orbhar-div">
+                <h3>Характеристики орбиты</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="g21">Ускорение свободного падения на поверхности тела</lable>
+                        </td>
+                        <td> <input type="number" name="g21" onchange="g21 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="ra21">Радиус тела</lable>
+                        </td>
+                        <td> <input type="number" name="ra21" onchange="ra21 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="r121">Положение(x)</lable>
+                        </td>
+                        <td> <input type="number" name="r121" onchange="r121 = Number(this.value)"> </td>
+                    </tr>
+					<tr>
+                        <td>
+                            <lable for="r221">Положение(y)</lable>
+                        </td>
+                        <td> <input type="number" name="r221" onchange="r221 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="v121">Скорость(x)</lable>
+                        </td>
+                        <td> <input type="number" name="v121" onchange="v121 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="v221">Скорость(y)</lable>
+                        </td>
+                        <td> <input type="number" name="v221" onchange="v221 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc21()">Рассчитать</button>
+                <p class="result" id="res21"></p>
+            </div>
+			<div class="content parach-div" id="parach-div">
+                <h3>Количество парашютов, необходмых для торможения до заданной скорости</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="m022">Масса спускаемого аппарата</lable>
+                        </td>
+                        <td> <input type="number" name="m022" onchange="m022 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="v022">Скорость, до которой вы тормозите у поверхности на данный момент</lable>
+                        </td>
+                        <td> <input type="number" name="v022" onchange="v022 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="v22">Скорость, до которой вам нужно затормозить</lable>
+                        </td>
+                        <td> <input type="number" name="v22" onchange="v22 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc22()">Рассчитать</button>
+                <p class="result" id="res22"></p>
+            </div>
+			<div class="content aero-div" id="aero-div">
+                <h3>Аэродинамический коэффициент</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="m23">Масса аппарата(кг)</lable>
+                        </td>
+                        <td> <input type="number" name="m23" onchange="m23 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="g23">Ускорение свободного падения на поверхности</lable>
+                        </td>
+                        <td> <input type="number" name="g23" onchange="g23 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="v23">Скорость аппарата у поверхности(скорость витания!!!)</lable>
+                        </td>
+                        <td> <input type="number" name="v23" onchange="v23 = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="rho23">Плотность атмосферы у поверхности(Па)</lable>
+                        </td>
+                        <td> <input type="number" name="rho23" onchange="rho23 = Number(this.value)"> </td>
+                    </tr>
+                </table> <button class="submit" onclick="calc23()">Рассчитать</button>
+                <p class="result" id="res23"></p>
+            </div>
+			<div class="content map-div" id="map-div">
+                 <h3>Расчёт карты Delta-V<a href="#" title="Пояснительная бригада в здесь"></a></h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="grod">Ускорение свободного падения на поверхности родительского тела</lable>
+                        </td>
+                        <td> <input type="number" name="grod" onchange="grod = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="rrod">Радиус родительского тела</lable>
+                        </td>
+                        <td> <input type="number" name="rrod" onchange="rrod = Number(this.value)"> </td>
+                    </tr>
+					<tr>
+                        <td>
+                            <lable for="G1">Ускорение свободного падения на поверхности стартового тела</lable>
+                        </td>
+                        <td> <input type="number" name="G1" onchange="G1 = Number(this.value)"></td>
+                    </tr>
+					<tr>
+                        <td>
+                            <lable for="R1">Радиус стартового тела</lable>
+                        </td>
+                        <td> <input type="number" name="R1" onchange="R1 = Number(this.value)"></td>
+                    </tr>
+					<tr>
+                        <td>
+                            <lable for="A1">Радиус орбиты стартового тела</lable>
+                        </td>
+                        <td> <input type="number" name="A1" onchange="A1 = Number(this.value)"></td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="H1">Радиус орбиты аппарата у начального тела</lable>
+                        </td>
+                        <td> <input type="number" name="H1" onchange="H1 = Number(this.value)"></td>
+                    </tr>
+				</table>
+                <form name="map" id="map">
+                    <div class="inform" id="example">
+                    <table>
+                    <tr>
+                        <td>
+                            <lable for="name">Название</lable>
+                        </td>
+                        <td> <input type="text" name="name" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="G2">Ускорение свободного падения на поверхности конечного тела</lable>
+                        </td>
+                        <td> <input type="number" name="G2" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="R2">Радиус конечного тела</lable>
+                        </td>
+                        <td> <input type="number" name="R2" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="A2">Радиус орбиты конечного тела</lable>
+                        </td>
+                        <td> <input type="number" name="A2" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="H2">Радиус орбиты аппарата у конечного тела</lable>
+                        </td>
+                        <td> <input type="number" name="H2" </td>
+                    </tr>
+                    </table>
+                    </div>
+                </form> <button class="add" onclick="addmap()"><img src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/04-512.png" alt="Упс... А где картинка" height="20px"></button> <button class="remove" onclick="removemap()"><img src="data:image/jpeg;base64,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" alt="Упс... А где картинка" height="20px"></button> <button class="submit" onclick="calc88()">Рассчитать</button>
+                <p class="result" id="res88"></p>
+				<h3>Доп. расчёт Delta-V</h3>
+				<table>
+                    <tr>
+                        <td>
+                            <lable for="nm">Название</lable>
+                        </td>
+                        <td> <input type="text" name="nm"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="rspu">Радиус тела</lable>
+                        </td>
+                        <td> <input type="number" name="rspu" onchange="rspu = Number(this.value)"> </td>
+                    </tr>
+					<tr>
+                        <td>
+                            <lable for="vh">Входная скорость</lable>
+                        </td>
+                        <td> <input type="number" name="vh" onchange="vh = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="gspu">Ускорение свободного падения на поверхности тела</lable>
+                        </td>
+                        <td> <input type="number" name="gspu" onchange="gspu = Number(this.value)"> </td>
+                    </tr>
+					<tr>
+                        <td>
+                            <lable for="perd">Перицентр орбиты у тела</lable>
+                        </td>
+                        <td> <input type="number" name="perd" onchange="perd = Number(this.value)"></td>
+                    </tr>
+				</table>
+				<form name="sput" id="sput">
+                    <div class="inform" id="example">
+                    <table>
+                    <tr>
+                        <td>
+                            <lable for="names">Название</lable>
+                        </td>
+                        <td> <input type="text" name="names" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="Gs">Ускорение свободного падения на поверхности спутника</lable>
+                        </td>
+                        <td> <input type="number" name="Gs" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="Rs">Радиус спутника</lable>
+                        </td>
+                        <td> <input type="number" name="Rs" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="As">Радиус орбиты спутника</lable>
+                        </td>
+                        <td> <input type="number" name="As" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="Hs">Радиус орбиты аппарата у спутника</lable>
+                        </td>
+                        <td> <input type="number" name="Hs" </td>
+                    </tr>
+                    </table>
+                    </div>
+                </form> <button class="add" onclick="addsput()"><img src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/04-512.png" alt="Упс... А где картинка" height="20px"></button> <button class="remove" onclick="removesput()"><img src="data:image/jpeg;base64,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" alt="Упс... А где картинка" height="20px"></button> <button class="submit" onclick="calc99()">Рассчитать</button>
+                <p class="result" id="res99"></p>
+				<h3>Расчёт без стартового тела(с орбиты)</h3>
+                <table>
+                    <tr>
+                        <td>
+                            <lable for="Gt">Ускорение свободного падения на поверхности родительского тела</lable>
+                        </td>
+                        <td> <input type="number" name="Gt" onchange="Gt = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="Rt">Радиус родительского тела</lable>
+                        </td>
+                        <td> <input type="number" name="Rt" onchange="Rt = Number(this.value)"> </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="A1t">Радиус начальной орбиты</lable>
+                        </td>
+                        <td> <input type="number" name="A1t" onchange="A1t = Number(this.value)"> </td>
+                    </tr>
+				</table>
+                <form name="dop" id="dop">
+                    <div class="inform" id="example">
+                    <table>
+                    <tr>
+                        <td>
+                            <lable for="namess">Название</lable>
+                        </td>
+                        <td> <input type="text" name="namess" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="G2t">Ускорение свободного падения на поверхности конечного тела</lable>
+                        </td>
+                        <td> <input type="number" name="G2t" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="R2t">Радиус конечного тела</lable>
+                        </td>
+                        <td> <input type="number" name="R2t" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="A2t">Радиус орбиты конечного тела</lable>
+                        </td>
+                        <td> <input type="number" name="A2t" </td>
+                    </tr>
+                    <tr>
+                        <td>
+                            <lable for="H2t">Радиус орбиты аппарата у конечного тела</lable>
+                        </td>
+                        <td> <input type="number" name="H2t" </td>
+                    </tr>
+                    </table>
+                    </div>
+                </form> <button class="add" onclick="adddop()"><img src="https://cdn1.iconfinder.com/data/icons/color-bold-style/21/04-512.png" alt="Упс... А где картинка" height="20px"></button> <button class="remove" onclick="removedop()"><img src="data:image/jpeg;base64,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" alt="Упс... А где картинка" height="20px"></button> <button class="submit" onclick="calc111()">Рассчитать</button>
+                <p class="result" id="res111"></p>
+            </div>
+            <div class="content settings-div" id="settings-div">
+            <button onclick="calcSwitch(this)" style="border: 2px solid red; background-color: rgba(0,0,0,0.1); color: white;">Показать калькулятор</button>
+        </div>
+        </div>
+
+        <div class="calculator">
+            <output contenteditable="true"></output>
+        </div>
+    </div>
+
+    <script src="load.js"></script>
+    <script src="script.js"></script>
+    <script src="switch.js"></script>
+    <script>
+        const output = document.querySelector('output')
+
+        const div = document.createElement('div')
+        div.classList.add('keyboard')
+        document.querySelector('.calculator').appendChild(div)
+        'C . % / 7 8 9 * 4 5 6 - 1 2 3 + 0 ( ) ='.split(' ')
+            .map(symbol => {
+                div.insertAdjacentHTML('beforeend', `<button class="calc-btn" value="${symbol}">${symbol}</button>`)
+            })
+        document.querySelectorAll('button').forEach(button => {
+            button.addEventListener('click', function() {
+                calc(this.value)
+            })
+        })
+
+        function calc(value) {
+            if (value.match(/=|Enter/)) {
+                try {
+                    output.textContent = Math.round(math.evaluate(output.textContent) * 1000) / 1000
+                } catch {
+                    let oldValue = output.textContent
+                    let newValue = 'недопустимое выражение'
+                    output.textContent = newValue
+                    setTimeout(() => {
+                        output.textContent = oldValue
+                    }, 1500)
+                }
+            } else if (value === 'C') {
+                output.textContent = ''
+            } else if (value.match(/CE|Backspace/)) {
+                output.textContent = output.textContent.substring(0, output.textContent.length - 1)
+            } else {
+                output.textContent += value
+            }
+        }
+    </script>
+</body></html>
