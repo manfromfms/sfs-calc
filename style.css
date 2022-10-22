@@ -16,6 +16,10 @@ body {
     background-size: 2.5%;
 }
 
+lable {
+    color: white;
+}
+
 /*calculator*/
 
 .calculator {
